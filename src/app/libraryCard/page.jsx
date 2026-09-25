@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -12,9 +13,11 @@ const LibraryCard = ({library}) => {
       <div>
         {/* Thumbnail Image */}
         <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-neutral-900">
-          <img
+          <Image
             src={library.image}
             alt={library.name}
+            width={800}
+            height={600}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </div>

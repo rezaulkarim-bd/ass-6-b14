@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 export default function Navbar({ planCount = 3, savedCount = 0 }) {
   const pathname = usePathname();
 
-  // নেভবার লিংকগুলোর লিস্ট
+ 
   const navLinks = [
     { name: 'Workout', href: '/' },
     { name: 'My Plan', href: '/my-plan' },
@@ -17,7 +17,7 @@ export default function Navbar({ planCount = 3, savedCount = 0 }) {
   return (
     <nav className="bg-[#181a1b] text-white px-8 md:px-12 py-4 rounded-2xl max-w-[1400px] w-full mx-auto my-4 shadow-2xl border border-neutral-800 flex items-center justify-between">
       
-      {/* ১. বাঁ পাশের লোগো */}
+      
       <div className="flex items-center gap-3">
         <Link href="/" className="text-xl font-black uppercase tracking-wider text-white flex items-center gap-2.5">
           <span className="w-3 h-3 bg-[#ccff00] rounded-full inline-block shadow-[0_0_8px_#ccff00]"></span>
@@ -25,7 +25,7 @@ export default function Navbar({ planCount = 3, savedCount = 0 }) {
         </Link>
       </div>
 
-      {/* ২. মাঝের নেভবার লিংকগুলো (প্রশস্ত লেআউটসহ) */}
+     
       <div className="hidden md:flex items-center gap-10 font-medium text-sm">
         {navLinks.map((link) => {
           const isActive = pathname === link.href;
@@ -40,7 +40,7 @@ export default function Navbar({ planCount = 3, savedCount = 0 }) {
               }`}
             >
               {link.name}
-              {/* অ্যাক্টিভ ট্যাবের নিচে নিয়ন গ্রিন বর্ডার বা আন্ডারলাইন */}
+            
               {isActive && (
                 <span className="absolute bottom-[-17px] left-0 w-full h-[3px] bg-[#ccff00] rounded-t-full"></span>
               )}
@@ -49,10 +49,10 @@ export default function Navbar({ planCount = 3, savedCount = 0 }) {
         })}
       </div>
 
-      {/* ৩. ডান পাশের স্ট্যাটাস ব্যাজগুলো (Plan এবং Saved) */}
+
       <div className="flex items-center gap-3">
         
-        {/* Plan Badge: ফিল্ড ব্যাকগ্রাউন্ডসহ (#ccff00) */}
+        
         <Link
           href="/my-plan"
           className="flex items-center gap-2 bg-[#ccff00] text-black text-xs md:text-sm font-bold px-4 py-1.5 rounded-full hover:bg-[#b8de00] transition-all shadow-md"
@@ -63,7 +63,7 @@ export default function Navbar({ planCount = 3, savedCount = 0 }) {
           </span>
         </Link>
 
-        {/* Saved Badge: শুধু আউটলাইন বা বর্ডারযুক্ত */}
+       
         <Link
           href="/my-plan"
           className="flex items-center gap-2 border border-neutral-700 text-gray-300 text-xs md:text-sm font-medium px-4 py-1.5 rounded-full hover:border-[#ccff00] hover:text-[#ccff00] transition-all"
