@@ -1,5 +1,9 @@
+'use client';
 
+
+import toast, { Toaster } from 'react-hot-toast';
 import React from 'react';
+
 
 const data = [
   {
@@ -276,22 +280,80 @@ const data = [
   }
 ]
 
-const LibraryDetailPage = async({params}) => {
-    const {id} = await params;
-    const library = data.find(library => library.id===parseInt(id))
+const LibraryDetailPage = ({params}) => {
+    const {id} = params;
+    const library = data.find(library => library.id === parseInt(id))
+
+    // ১. Add to today's plan হ্যান্ডলার
+  const handleAddToPlan = () => {
+    // লোকাল স্টোরেজ থেকে প্ল্যান ডাটা ফেচ করা বা ইনিশিয়ালাইজ করা
+    const existingPlan = JSON.parse(localStorage.getItem('todaysPlan')) || [];
+    
+    // ডুপ্লিকেট চেক করা যাতে একই ওয়ার্কআউট বারবার অ্যাড না হয়
+    const isAlreadyAdded = existingPlan.some((item) => item.id === data.id);
+    
+    if (!isAlreadyAdded) {
+      existingPlan.push(data);
+      localStorage.setItem('todaysPlan', JSON.stringify(existingPlan));
+      
+      // ব্যাজ কাউন্টার আপডেটের জন্য কাস্টম ইভেন্ট বা ট্রিগার (ঐচ্ছিক)
+      window.dispatchEvent(new Event('storage'));
+    }
+
+    // টোস্ট নোটিফিকেশন দেখানো
+    toast.success("Added to today's plan", {
+      style: {
+        background: '#181a1b',
+        color: '#fff',
+        border: '1px solid #ccff00',
+      },
+      iconTheme: {
+        primary: '#ccff00',
+        secondary: '#000',
+      },
+    });
+  };
+
+  // ২. Save for later হ্যান্ডলার
+  const handleSaveForLater = () => {
+    const savedWorkouts = JSON.parse(localStorage.getItem('savedWorkouts')) || [];
+    
+    const isAlreadySaved = savedWorkouts.some((item) => item.id === data.id);
+    
+    if (!isAlreadySaved) {
+      savedWorkouts.push(data);
+      localStorage.setItem('savedWorkouts', JSON.stringify(savedWorkouts));
+      window.dispatchEvent(new Event('storage'));
+    }
+
+    // টোস্ট নোটিফিকেশন দেখানো
+    toast.success("Saved for later", {
+      style: {
+        background: '#181a1b',
+        color: '#fff',
+        border: '1px solid #71717a',
+      },
+      iconTheme: {
+        primary: '#ccff00',
+        secondary: '#000',
+      },
+    });
+  };
+
+  
     return (
         <div>
-             {
-                library && 
-                <div>
-                     <div className="bg-[#121314] text-white min-h-screen py-10 px-6 md:px-12">
+            <div className="bg-[#121314] text-white min-h-screen py-10 px-6 md:px-12">
+      {/* টোস্ট নোটিফিকেশনের কনটেইনার */}
+      <Toaster position="bottom-right" reverseOrder={false} />
+
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         
         {/* Left Side: Large Image */}
         <div className="w-full rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
           <img
-            src={data.image}
-            alt={data.name}
+            src={data?.image}
+            alt={data?.name}
             className="w-full h-auto object-cover max-h-[550px]"
           />
         </div>
@@ -299,57 +361,58 @@ const LibraryDetailPage = async({params}) => {
         {/* Right Side: Details & Info */}
         <div className="space-y-6">
           
-          {/* Title & Description */}
           <div>
             <h1 className="text-3xl md:text-4xl font-black uppercase tracking-wide mb-2">
-              {data.name}
+              {data?.name}
             </h1>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-              {data.description}
+              {data?.description}
             </p>
           </div>
 
           {/* Muscle Groups Badges */}
           <div className="flex flex-wrap gap-2">
-            {data.muscleGroups.map((group, index) => (
-              <span
-                key={index}
-                className="bg-[#ccff00] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
-              >
-                {group}
+            {data?.muscleGroups?.[0] && (
+              <span className="bg-[#ccff00] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                {data.muscleGroups[0]}
               </span>
-            ))}
+            )}
+            {data?.muscleGroups?.[1] && (
+              <span className="bg-[#ccff00] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                {data.muscleGroups[1]}
+              </span>
+            )}
           </div>
 
-          {/* Specifications Table/Box */}
+          {/* Specifications Box */}
           <div className="bg-[#181a1b] border border-neutral-800 rounded-2xl p-5 space-y-3.5 text-sm">
             <div className="flex justify-between items-center border-b border-neutral-800 pb-2.5">
               <span className="text-gray-400 font-medium uppercase text-xs tracking-wider">Equipment</span>
-              <span className="font-semibold text-gray-200">{data.equipment}</span>
+              <span className="font-semibold text-gray-200">{data?.equipment}</span>
             </div>
             <div className="flex justify-between items-center border-b border-neutral-800 pb-2.5">
               <span className="text-gray-400 font-medium uppercase text-xs tracking-wider">Difficulty</span>
-              <span className="font-semibold text-gray-200">{data.difficulty}</span>
+              <span className="font-semibold text-gray-200">{data?.difficulty}</span>
             </div>
             <div className="flex justify-between items-center border-b border-neutral-800 pb-2.5">
               <span className="text-gray-400 font-medium uppercase text-xs tracking-wider">Sets</span>
-              <span className="font-semibold text-gray-200">{data.sets}</span>
+              <span className="font-semibold text-gray-200">{data?.sets}</span>
             </div>
             <div className="flex justify-between items-center border-b border-neutral-800 pb-2.5">
               <span className="text-gray-400 font-medium uppercase text-xs tracking-wider">Reps</span>
-              <span className="font-semibold text-gray-200">{data.reps}</span>
+              <span className="font-semibold text-gray-200">{data?.reps}</span>
             </div>
             <div className="flex justify-between items-center border-b border-neutral-800 pb-2.5">
               <span className="text-gray-400 font-medium uppercase text-xs tracking-wider">Duration</span>
-              <span className="font-semibold text-gray-200">{data.duration}</span>
+              <span className="font-semibold text-gray-200">{data?.duration}</span>
             </div>
             <div className="flex justify-between items-center border-b border-neutral-800 pb-2.5">
               <span className="text-gray-400 font-medium uppercase text-xs tracking-wider">Calories</span>
-              <span className="font-semibold text-gray-200">{data.calories}</span>
+              <span className="font-semibold text-gray-200">{data?.calories}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-400 font-medium uppercase text-xs tracking-wider">Rating</span>
-              <span className="font-semibold text-gray-200">{data.rating}</span>
+              <span className="font-semibold text-gray-200">{data?.rating}</span>
             </div>
           </div>
 
@@ -359,26 +422,50 @@ const LibraryDetailPage = async({params}) => {
               Instructions
             </h3>
             <ol className="space-y-2 text-sm text-gray-400">
-              {data.instructions.map((step, index) => (
-                <li key={index} className="flex gap-3">
-                  <span className="text-white font-bold">{index + 1}.</span>
-                  <span>{step}</span>
+              {data?.instructions?.[0] && (
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">1.</span>
+                  <span>{data.instructions[0]}</span>
                 </li>
-              ))}
+              )}
+              {data?.instructions?.[1] && (
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">2.</span>
+                  <span>{data.instructions[1]}</span>
+                </li>
+              )}
+              {data?.instructions?.[2] && (
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">3.</span>
+                  <span>{data.instructions[2]}</span>
+                </li>
+              )}
+              {data?.instructions?.[3] && (
+                <li className="flex gap-3">
+                  <span className="text-white font-bold">4.</span>
+                  <span>{data.instructions[3]}</span>
+                </li>
+              )}
             </ol>
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Buttons with functionality */}
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
             
             {/* Add to today's plan Button */}
-            <button className="w-full sm:flex-1 bg-[#ccff00] text-black font-bold py-3.5 px-6 rounded-full hover:bg-[#bce400] transition-all flex items-center justify-center gap-2 text-sm shadow-lg">
+            <button
+              onClick={handleAddToPlan}
+              className="w-full sm:flex-1 bg-[#ccff00] text-black font-bold py-3.5 px-6 rounded-full hover:bg-[#bce400] transition-all flex items-center justify-center gap-2 text-sm shadow-lg cursor-pointer"
+            >
               <span>📅</span>
               <span>Add to today's plan</span>
             </button>
 
             {/* Save for later Button */}
-            <button className="w-full sm:w-auto border border-neutral-700 text-gray-300 font-medium py-3.5 px-6 rounded-full hover:border-[#ccff00] hover:text-[#ccff00] transition-all flex items-center justify-center gap-2 text-sm">
+            <button
+              onClick={handleSaveForLater}
+              className="w-full sm:w-auto border border-neutral-700 text-gray-300 font-medium py-3.5 px-6 rounded-full hover:border-[#ccff00] hover:text-[#ccff00] transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+            >
               <span>🔖</span>
               <span>Save for later</span>
             </button>
@@ -388,9 +475,7 @@ const LibraryDetailPage = async({params}) => {
         </div>
 
       </div>
-    </div>
-                </div>
-             }
+    </div>  
         </div>
     );
 };

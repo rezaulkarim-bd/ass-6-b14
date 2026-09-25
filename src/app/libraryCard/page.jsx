@@ -4,7 +4,7 @@ import React from 'react';
 const LibraryCard = ({library}) => {
   const {id,image,name,muscleGroups,equipment,duration,caloriesBurned,rating} = library
     return (
-      <Link href={`/libraries/${library.id}`}>
+      <Link href={`/library/${library.id}`}>
         <div>
             <div className="bg-[#181a1b] border border-neutral-800 rounded-2xl p-4 text-white shadow-xl hover:border-[#ccff00]/50 transition-all duration-300 flex flex-col justify-between max-w-sm w-full">
       
@@ -18,6 +18,15 @@ const LibraryCard = ({library}) => {
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </div>
+{/* 
+        {(data.muscleGroups || []).map((group, index) => (
+  <span
+    key={index}
+    className="bg-[#ccff00] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
+  >
+    {group}
+  </span>
+))} */}
 
        
         <div className="flex flex-wrap gap-2 mb-3">

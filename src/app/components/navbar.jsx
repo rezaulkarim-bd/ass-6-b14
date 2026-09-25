@@ -11,9 +11,7 @@ export default function Navbar({ planCount = 3, savedCount = 0 }) {
   const navLinks = [
     { name: 'Workout', href: '/' },
     { name: 'My Plan', href: '/my-plan' },
-    { name: 'Log', href: '/log' },
-    { name: 'Progress', href: '/progress' },
-    { name: 'Settings', href: '/settings' },
+
   ];
 
   return (
