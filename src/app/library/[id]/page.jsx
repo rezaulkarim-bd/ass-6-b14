@@ -4,6 +4,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import PlanButton from '../../components/libraryDetail/PlanButton';
 
 
 
@@ -114,15 +115,14 @@ const LibraryDetailPage = async({params}) => {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-            <div className="w-full sm:flex-1 bg-[#ccff00] text-black font-bold py-3.5 px-6 rounded-full flex items-center justify-center gap-2 text-sm shadow-lg cursor-default">
-              <span>📅</span>
-              <span>Add to today's plan</span>
-            </div>
-            <div className="w-full sm:w-auto border border-neutral-700 text-gray-300 font-medium py-3.5 px-6 rounded-full flex items-center justify-center gap-2 text-sm cursor-default">
+             <PlanButton library ={library}></PlanButton>
+            <button className="btn w-full sm:w-auto border border-neutral-700 bg-transparent text-gray-300 font-medium py-3.5 px-6 rounded-full hover:border-[#ccff00] hover:text-[#ccff00] flex items-center justify-center gap-2 text-sm">
               <span>🔖</span>
               <span>Save for later</span>
-            </div>
+            </button>
           </div>
+
+        
 
         </div>
 
