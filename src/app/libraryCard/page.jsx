@@ -1,88 +1,33 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
+import LibraryCard from '../libraryCard/page';
 
-const LibraryCard = ({library}) => {
-  const {id,image,name,muscleGroups,equipment,duration,caloriesBurned,rating} = library
+const getData = async() => {
+    const res = await fetch('https://api.abcz.workers.dev/api/fitlog');
+    return res.json();
+}
+
+const LibraryPage = async() => {
+    const libraries = await getData();
     return (
-      <Link href={`/library/${library.id}`}>
-        <div>
-            <div className="bg-[#181a1b] border border-neutral-800 rounded-2xl p-4 text-white shadow-xl hover:border-[#ccff00]/50 transition-all duration-300 flex flex-col justify-between max-w-sm w-full">
-      
-      
-      <div>
-        {/* Thumbnail Image */}
-        <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-neutral-900">
-          <Image
-            src={library.image}
-            alt={library.name}
-            width={800}
-            height={600}
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
+        <div className="max-w-7xl mx-auto px-4 my-8">
+            <div className="px-2 mb-6">
+                <h1 className="text-lg font-bold tracking-wider text-white uppercase mb-1">
+                    THE LIBRARY
+                </h1>
+                <p className="text-xs text-neutral-400">
+                    Twelve lifts covering every major muscle group.
+                </p>
+            </div>
+            
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+                {
+                    libraries.map(library => { 
+                        return <LibraryCard key={library.id} library={library} />;
+                    })
+                }
+            </div>
         </div>
-{/* 
-        {(data.muscleGroups || []).map((group, index) => (
-  <span
-    key={index}
-    className="bg-[#ccff00] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
-  >
-    {group}
-  </span>
-))} */}
-
-       
-        <div className="flex flex-wrap gap-2 mb-3">
-          {library.muscleGroups.map((group, index) => (
-            <span
-              key={index}
-              className="bg-[#ccff00] text-black text-xs font-bold px-3 py-0.5 rounded-full uppercase tracking-wider"
-            >
-              {group}
-            </span>
-          ))}
-        </div>
-
-        
-        <h3 className="text-lg font-black uppercase tracking-wide text-white mb-1">
-          {library.name}
-        </h3>
-
-     
-        <p className="text-gray-400 text-xs mb-4">
-          {library.equipment}
-        </p>
-      </div>
-
-      {/* Lower Section: Duration, Calories, Rating */}
-      <div className="flex items-center justify-between text-xs text-gray-300 pt-3 border-t border-neutral-800/80">
-        
-        
-        <div className="flex items-center gap-1.5">
-          <span className="text-[#ccff00]">⏱</span>
-          <span>{library.duration} min</span>
-        </div>
-
-        
-        <div className="flex items-center gap-1.5">
-          <span className="text-[#ccff00]">🔥</span>
-          <span>{library.caloriesBurned} kcal</span>
-        </div>
-
-     
-        <div className="flex items-center gap-1.5">
-          <span className="text-[#ccff00]">⭐</span>
-          <span>{library.rating}</span>
-        </div>
-
-      </div>
-
-    </div>
-  
-
-        </div>
-        </Link>
     );
 };
 
-export default LibraryCard;
+export default LibraryPage;
