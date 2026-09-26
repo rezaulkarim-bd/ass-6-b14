@@ -5,6 +5,7 @@
 import React from 'react';
 import Image from 'next/image';
 import PlanButton from '../../components/libraryDetail/PlanButton';
+import SaveButton from '../../components/libraryDetail/SaveButton';
 
 
 
@@ -116,10 +117,7 @@ const LibraryDetailPage = async({params}) => {
 
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
              <PlanButton library ={library}></PlanButton>
-            <button className="btn w-full sm:w-auto border border-neutral-700 bg-transparent text-gray-300 font-medium py-3.5 px-6 rounded-full hover:border-[#ccff00] hover:text-[#ccff00] flex items-center justify-center gap-2 text-sm">
-              <span>🔖</span>
-              <span>Save for later</span>
-            </button>
+             <SaveButton library={library}></SaveButton>
           </div>
 
         

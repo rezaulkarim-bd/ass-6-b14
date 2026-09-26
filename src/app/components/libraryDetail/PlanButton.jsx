@@ -3,10 +3,12 @@
 import React, { useContext } from 'react';
 import { librariesContext } from '../context/librariesContext';
 
+
 const PlanButton = ({library}) => {
     const {addTOTodaysPlan,setAddTOTodaysPlan} = useContext(librariesContext)
     const handlePlanBook = () =>{
        setAddTOTodaysPlan([...addTOTodaysPlan,library])
+       alert(`${library.name}`)
     }
     return (
         <div>
