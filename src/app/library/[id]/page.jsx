@@ -83,7 +83,9 @@ const LibraryDetailPage = async({params}) => {
                             </div>
                             <div className="flex justify-between items-center border-b border-neutral-800 pb-2.5">
                                 <span className="text-gray-400 font-medium uppercase tracking-wider">Calories Burn</span>
-                                <span className="font-semibold text-[#ccff00]">{library?.caloriesBurned ? `${library.caloriesBurned} kcal` : 'N/A'}</span>
+                                <span className="font-semibold text-[#ccff00]">
+                                    {library?.caloriesBurned || library?.calories ? `${library?.caloriesBurned || library?.calories} kcal` : 'N/A'}
+                                </span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-gray-400 font-medium uppercase tracking-wider">Rating</span>

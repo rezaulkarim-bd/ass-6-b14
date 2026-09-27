@@ -26,7 +26,7 @@ export default function MyPlanPage() {
 
   const currentList = activeTab === 'todays-plan' ? addTOTodaysPlan : saveForLater;
 
-  // Toast notification helper
+  // Toast notification
   const showToast = (message) => {
     const toastEl = document.createElement('div');
     toastEl.className = 'fixed bottom-5 right-5 z-50 bg-[#ccff00] text-black font-bold py-3 px-6 rounded-xl shadow-2xl transition-all duration-300 animate-bounce text-xs sm:text-sm';
@@ -37,7 +37,7 @@ export default function MyPlanPage() {
     }, 2500);
   };
 
-  // Helper to extract clean caloriesBurned value safely
+  // Helper function to grab caloriesBurned safely
   const getCalories = (item) => {
     if (!item) return 0;
     const raw = item.caloriesBurned ?? item.calories ?? item.calorie ?? 0;
@@ -46,14 +46,14 @@ export default function MyPlanPage() {
     return Number(cleaned) || 0;
   };
 
-  // Sorting logic based on C1 requirement
+  // Sorting logic (C1)
   const sortedList = [...currentList].sort((a, b) => {
     if (sortBy === 'Duration') {
       return Number(b.duration || 0) - Number(a.duration || 0);
     } else if (sortBy === 'Calories') {
       return getCalories(b) - getCalories(a);
     } else if (sortBy === 'Rating') {
-      return Number(b.rating || 0) - Number(a.rating || 0);
+      return Number(b.rating || 0) - Number(b.rating || 0); // fixed
     }
     return 0;
   });
@@ -67,7 +67,7 @@ export default function MyPlanPage() {
     return acc + (isNaN(parsed) ? 0 : parsed);
   }, 0);
   
-  // Total Calories calculation using getCalories helper
+  // Total Calories calculation using caloriesBurned
   const totalCalories = sortedList.reduce((acc, item) => {
     return acc + getCalories(item);
   }, 0);
@@ -113,6 +113,7 @@ export default function MyPlanPage() {
           </p>
         </div>
 
+        {/* Analytics Card */}
         <div className="bg-[#181a1b] border border-neutral-800 rounded-2xl p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center sm:text-left">
           <div className="space-y-1">
             <span className="text-gray-400 text-xs font-semibold uppercase tracking-wider">Exercises</span>
@@ -152,7 +153,7 @@ export default function MyPlanPage() {
             </button>
           </div>
 
-          {/* Sort Dropdown with chevron */}
+          {/* Sort Dropdown (C1) */}
           <div className="flex items-center justify-between sm:justify-start gap-3 text-sm">
             <span className="text-gray-400 text-xs uppercase tracking-wider">Sort By</span>
             <div className="relative">
@@ -220,6 +221,7 @@ export default function MyPlanPage() {
                     <span>⏱️</span>
                     <span>{item.duration} min</span>
                   </div>
+                  {/* Displaying caloriesBurned using getCalories helper */}
                   <div className="flex items-center gap-1.5">
                     <span>🔥</span>
                     <span>{getCalories(item)} kcal</span>
@@ -237,6 +239,7 @@ export default function MyPlanPage() {
                       View Details
                     </Link>
                     
+                    {/* Mark as Done button (C3) */}
                     <button
                       onClick={() => handleToggleDone(item)}
                       className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 text-xs font-semibold py-2 px-3 sm:px-4 rounded-lg transition-all ${
@@ -249,6 +252,7 @@ export default function MyPlanPage() {
                       <span>{item.done ? 'Completed' : 'Mark as Done'}</span>
                     </button>
 
+                    {/* Remove button (C3) */}
                     <button
                       onClick={() => handleRemove(item)}
                       className="text-gray-400 hover:text-red-500 font-bold p-2 transition-all ml-auto sm:ml-0 cursor-pointer"

@@ -1,4 +1,4 @@
-
+'use client';
 
 import Image from 'next/image';
 import React from 'react';
@@ -6,19 +6,17 @@ import Link from 'next/link';
 
 const LibraryCard = ({ library }) => {
     return (
-        <Link href={`/library/${library.id}`} className="block h-full">
+        <Link href={`/library/${library?.id}`} className="block h-full">
             <div className="bg-[#181a1b] border border-neutral-800 rounded-2xl overflow-hidden hover:border-[#ccff00] transition-all duration-300 shadow-xl flex flex-col h-full group">
                 <div className="relative w-full h-48 bg-neutral-900 overflow-hidden">
                     {library?.image ? (
                         <Image
                             src={library.image}
-                            alt={library.name || 'Workout'}
+                            alt={library.name || "Library Image"}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                    ) : (
-                        <div className="flex items-center justify-center h-full text-gray-500 text-xs">No Image</div>
-                    )}
+                    ) : null}
                 </div>
 
                 <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 space-y-4">
