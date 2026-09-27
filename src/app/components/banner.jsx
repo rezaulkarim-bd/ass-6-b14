@@ -1,27 +1,29 @@
+
+
 import Image from 'next/image';
 import React from 'react';
 import Logo from '../../assets/banner.png';
 
 const Banner = () => {
     return (
-        <div className="max-w-7xl mx-auto px-4">
-          <section className="bg-[#181a1b] text-white py-10 px-6 md:px-10 rounded-2xl shadow-xl border border-neutral-800">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <section className="bg-[#181a1b] text-white py-8 px-6 md:px-10 rounded-2xl shadow-xl border border-neutral-800">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-              <div className="flex-1 space-y-4">
+              <div className="flex-1 space-y-4 text-center lg:text-left">
                 <span className="text-[#d4fc00] text-xs font-bold tracking-widest uppercase">
                   WORKOUT LIBRARY
                 </span>
 
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-none font-sans">
+                <h1 className="text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-none">
                   TRAIN WITH INTENT. <br />
                   LOG EVERY SET.
                 </h1>
 
-                <p className="text-gray-400 text-sm leading-relaxed max-w-xl">
+                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto lg:mx-0">
                   FitLog is a dark, no-nonsense gym companion: pick a lift, lock it into today's plan, and watch the week's work add up.
                 </p>
 
-                <div className="pt-1">
+                <div className="pt-1 flex justify-center lg:justify-start">
                   <a
                     href="#library"
                     className="inline-flex items-center gap-2 bg-[#d4fc00] text-black font-bold px-5 py-2.5 rounded-full hover:bg-[#bce400] transition-all duration-200 text-xs tracking-wide"

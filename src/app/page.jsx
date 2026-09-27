@@ -3,12 +3,17 @@ import Banner from './components/banner';
 import LibraryPage from './library/page';
 
 
+
+
+
+
 const page = () => {
   return (
     <div>
    
       <Banner></Banner>
-      <LibraryPage></LibraryPage>
+       
+       <LibraryPage></LibraryPage>
        
 
     </div>

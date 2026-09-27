@@ -19,7 +19,7 @@ const PlanButton = ({ library }) => {
 
     const showToast = (message) => {
         const toastEl = document.createElement('div');
-        toastEl.className = 'fixed bottom-5 right-5 z-50 bg-[#ccff00] text-black font-bold py-3 px-6 rounded-xl shadow-2xl transition-all duration-300 animate-bounce';
+        toastEl.className = 'fixed bottom-5 right-5 z-50 bg-[#ccff00] text-black font-bold py-3 px-6 rounded-xl shadow-2xl transition-all duration-300 animate-bounce text-xs sm:text-sm';
         toastEl.innerText = message;
         document.body.appendChild(toastEl);
         setTimeout(() => {
@@ -28,9 +28,9 @@ const PlanButton = ({ library }) => {
     };
 
     return (
-        <div>
+        <div className="w-full sm:w-auto">
             <button 
-                className="btn w-full sm:flex-1 bg-[#ccff00] text-black font-bold py-3.5 px-6 rounded-full border-none hover:bg-[#bce400] flex items-center justify-center gap-2 text-sm shadow-lg cursor-pointer" 
+                className="btn w-full bg-[#ccff00] text-black font-bold py-3.5 px-6 rounded-full border-none hover:bg-[#bce400] flex items-center justify-center gap-2 text-sm shadow-lg cursor-pointer" 
                 onClick={handlePlanBook}
             >
                 <span>📅</span>

@@ -19,7 +19,7 @@ const SaveButton = ({ library }) => {
 
     const showToast = (message) => {
         const toastEl = document.createElement('div');
-        toastEl.className = 'fixed bottom-5 right-5 z-50 bg-neutral-800 text-[#ccff00] border border-[#ccff00] font-bold py-3 px-6 rounded-xl shadow-2xl transition-all duration-300 animate-bounce';
+        toastEl.className = 'fixed bottom-5 right-5 z-50 bg-neutral-800 text-[#ccff00] border border-[#ccff00] font-bold py-3 px-6 rounded-xl shadow-2xl transition-all duration-300 animate-bounce text-xs sm:text-sm';
         toastEl.innerText = message;
         document.body.appendChild(toastEl);
         setTimeout(() => {
@@ -28,9 +28,9 @@ const SaveButton = ({ library }) => {
     };
 
     return (
-        <div>
+        <div className="w-full sm:w-auto">
             <button 
-                className="btn w-full sm:w-auto border border-neutral-700 bg-transparent text-gray-300 font-medium py-3.5 px-6 rounded-full hover:border-[#ccff00] hover:text-[#ccff00] flex items-center justify-center gap-2 text-sm cursor-pointer" 
+                className="btn w-full border border-neutral-700 bg-transparent text-gray-300 font-medium py-3.5 px-6 rounded-full hover:border-[#ccff00] hover:text-[#ccff00] flex items-center justify-center gap-2 text-sm cursor-pointer" 
                 onClick={handleSaveBook}
             >
                 <span>🔖</span>
